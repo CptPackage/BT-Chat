@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black" >
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription="@string/chat_background_content_description"
+    android:scaleType="centerCrop"
+    android:src="@drawable/img_default_chat_bg"
+    android:alpha="0.9"/>
+
+    <EditText
+        android:id="@+id/chat_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/shape_input"
+        android:ems="10"
+        android:hint="@string/chat_field_placeholder"
+        android:maxLength="200"
+        android:autofillHints="@android:string/ok"
+        android:inputType="textAutoCorrect|textAutoComplete|textCapSentences"
+        android:padding="10dp"
+        android:imeOptions="actionSend"
+        android:elevation="4dp"
+        android:textCursorDrawable="@drawable/shape_input_cursor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/send_button"
+        app:layout_constraintStart_toEndOf="@+id/emoticon_button" />
+
+    <ImageButton
+        android:id="@+id/emoticon_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/shape_button_emoticon"
+        android:padding="8dp"
+        android:contentDescription="@string/chat_emoticon_button_content_description"
+        android:src="@drawable/ic_emoticon"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chat_input" />
+
+    <ImageButton
+        android:id="@+id/send_button"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/shape_button_send"
+        android:src="@drawable/ic_send"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/chat_send_button_content_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chat_input" />
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/emoticons_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/emoticons_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_list_emoticons"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/chat_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        android:layout_marginHorizontal="6dp"
+        android:elevation="8dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

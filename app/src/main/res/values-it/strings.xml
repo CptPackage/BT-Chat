@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BT-Chat</string>
+    <string name="main_startup_logo">Bluetooth Chat</string>
+    <string name="main_dev_credit">DevEye</string>
+
+    <string name="activity_label_lobby">Corridoio</string>
+    <string name="activity_label_connection">Scegli un dispositivo</string>
+
+    <string name="connection_status_connecting">Connessione in corso</string>
+    <string name="connection_status_connected">Connessione riuscita</string>
+
+    <string name="reg_header">Inserisci il tuo nome</string>
+    <string name="reg_field_placeholder">John Doe</string>
+    <string name="reg_submit_button">Avant</string>
+
+    <string name="request_permissions_header">Accettare i permessi rechiesti come sono essenziali per la funzionalità!</string>
+    <string name="request_permissions_button">Richiedi i permessi</string>
+    <string name="request_permissions_hint">Premi Richiedi i permessi per mostrare il dialogo</string>
+
+    <string name="new_devices_header">Dispositivi Vicini</string>
+    <string name="paired_devices_header">Dispositivi Accopiati</string>
+    <string name="scan_button">Scansiona</string>
+
+    <string name="chat_field_placeholder">Scrivi un messaggio</string>
+    <string name="chat_send_button_content_description">Invio</string>
+    <string name="chat_emoticon_button_content_description">Emoticon</string>
+    <string name="chat_background_content_description">La città di sfondo</string>
+
+    <string name="menu_chat_search">Cerca</string>
+    <string name="menu_chat_search_hint">Scrivi la parola chiave</string>
+    <string name="menu_chat_toggle_encryption">Attiva/Disattiva la crittografia</string>
+    <string name="menu_chat_delete_messages">Cancella messaggi</string>
+    <string name="menu_chat_delete_all_messages_device">Cancella tutto il chat</string>
+    <string name="menu_chat_delete_all_messages_global">Cancella tutto i messaggi</string>
+
+    <string name="dialog_delete_messages_title">Sei sicuro di voler cancellare i messaggi segnalati?</string>
+    <string name="dialog_delete_all_messages_device_title">Sei sicuro di voler cancellare tutto il chat?</string>
+    <string name="dialog_delete_all_messages_global_title">Sei sicuro di voler cancellare tutti i messaggi?</string>
+    <string name="dialog_success">Cancella</string>
+    <string name="dialog_failure">Annulla</string>
+
+    <string name="toast_not_connected_to_this_device">Non sei connesso a questo dispositivo!</string>
+    <string name="toast_not_connected_to_any_device">Non sei connesso a nessun dispositivo!</string>
+    <string name="toast_no_device_found">Nessun dispositivi trovato!</string>
+    <string name="toast_enabling_bluetooth">Il bluetooth è disabilitato, abilitazione in corso!</string>
+    <string name="toast_attempt_to_connect">Connessione in corso!</string>
+    <string name="toast_connected">Connessione Stabilita con %1$s!</string>
+    <string name="toast_disconnected">Connessione Persa!</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#9DB5B2</color>
+    <color name="colorPrimaryDark">#476A6F</color>
+    <color name="colorAccent">#F5EFFF</color>
+    <color name="colorSecondary">#DAF0EE</color>
+    <color name="btnBgColor">#DAF0EE</color>
+    <color name="btnTextColor">#79807A</color>
+    <color name="tableColor">#BBCCC9</color>
+    <color name="separatorColor">#CECECE</color>
+</resources>

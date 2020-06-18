@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">BT-Chat</string>
+    <string name="main_startup_logo">Bluetooth Chat</string>
+    <string name="main_dev_credit">DevEye</string>
+
+    <string name="activity_label_lobby">Lobby</string>
+    <string name="activity_label_connection">Select a device to connect</string>
+
+    <string name="connection_status_connecting">Connecting</string>
+    <string name="connection_status_connected">Connected</string>
+
+    <string name="reg_header">Enter your nickname</string>
+    <string name="reg_field_placeholder">John Doe</string>
+    <string name="reg_submit_button">Next</string>
+
+    <string name="request_permissions_header">Please grant the permissions as they are essential for the app functionality.</string>
+    <string name="request_permissions_button">Request Permissions</string>
+    <string name="request_permissions_hint">Press Request Permissions to get the dialog</string>
+
+    <string name="new_devices_header">Discovered Devices</string>
+    <string name="paired_devices_header">Paired Devices</string>
+    <string name="scan_button">Scan Nearby Devices</string>
+
+    <string name="chat_field_placeholder">Type a message</string>
+    <string name="chat_send_button_content_description">Send Button</string>
+    <string name="chat_emoticon_button_content_description">Emoticons</string>
+    <string name="chat_background_content_description">Nice City Behind</string>
+
+    <string name="menu_chat_search">Search</string>
+    <string name="menu_chat_search_hint">Type your search keyword</string>
+    <string name="menu_chat_toggle_encryption">Toggle Encryption</string>
+    <string name="menu_chat_delete_messages">Delete Messages</string>
+    <string name="menu_chat_delete_all_messages_device">Clear chat</string>
+    <string name="menu_chat_delete_all_messages_global">Delete all messages </string>
+
+    <string name="dialog_delete_messages_title">Are you sure you want to delete the selected messages?</string>
+    <string name="dialog_delete_all_messages_device_title">Are you sure you want to delete all messages?</string>
+    <string name="dialog_delete_all_messages_global_title">Are you sure you want to clear all chat?</string>
+    <string name="dialog_success">Delete</string>
+    <string name="dialog_failure">Cancel</string>
+
+    <string name="toast_not_connected_to_this_device">You are not connected to this device!</string>
+    <string name="toast_not_connected_to_any_device">You are not connected to any device!</string>
+    <string name="toast_no_device_found">No device found!</string>
+    <string name="toast_enabling_bluetooth">Bluetooth disabled, enabling it!</string>
+    <string name="toast_attempt_to_connect">Attempting to connect!</string>
+    <string name="toast_connected">Connection Established %1$s!</string>
+    <string name="toast_disconnected">Disconnected!</string>
+</resources>
