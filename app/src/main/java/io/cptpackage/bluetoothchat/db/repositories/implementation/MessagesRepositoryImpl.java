@@ -3,7 +3,6 @@ package io.cptpackage.bluetoothchat.db.repositories.implementation;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -72,38 +71,6 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
     }
 
     @Override
-    public List<Message> getMessagesContaining(String keyword) {
-        SQLiteDatabase db = dbManager.getReadableDatabase();
-        String forgedKeyword = "'%" + keyword + "%'";
-        String query = String.format("SELECT * FROM %s WHERE %s LIKE %s", TABLE_NAME, CONTENT_COL, forgedKeyword);
-        Log.e("QUERY", "getMessagesContaining: " + query);
-        Cursor cursor = db.rawQuery(query, null);
-        List<Message> messages = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            messages.add(new Message().compile(cursor));
-        }
-        cursor.close();
-        return messages;
-    }
-
-    @Override
-    public boolean deleteMessage(Message message) {
-        SQLiteDatabase db = dbManager.getWritableDatabase();
-        db.beginTransaction();
-        try {
-            String clause = String.format("%s=?", ID_COL);
-            db.delete(TABLE_NAME, clause, new String[]{String.valueOf(message.getId())});
-            db.setTransactionSuccessful();
-            return true;
-        } catch (Exception e) {
-            Log.d(MessagesRepositoryImpl.class.getName(), "Error while deleting single message! " + e.getMessage());
-            return false;
-        } finally {
-            db.endTransaction();
-        }
-    }
-
-    @Override
     public boolean exist(Message message) {
         SQLiteDatabase db = dbManager.getReadableDatabase();
         if (message.getSender() == null || message.getReceiver() == null) {
@@ -122,29 +89,29 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
     }
 
     @Override
-    public boolean deleteMessages(List<Message> messages) {
+    public void deleteMessages(List<Message> messages) {
         SQLiteDatabase db = dbManager.getWritableDatabase();
         db.beginTransaction();
         try {
-            List<String> ids = new ArrayList<>();
+            String clause = String.format("%s = ? AND %s = ? AND %s = ? AND %s = ? AND %s = ?",
+                    SENDER_ID_COL, RECEIVER_ID_COL, DATE_COL, TIME_COL, CONTENT_COL);
             for (Message message : messages) {
-                ids.add(String.valueOf(message.getId()));
+                String senderId = String.valueOf(message.getSender().getId());
+                String receiverId = String.valueOf(message.getReceiver().getId());
+                db.delete(TABLE_NAME, clause,
+                        new String[]{senderId, receiverId,
+                                message.getFullDateString(), message.getFullTimeString(), message.getContent()});
             }
-            String args = TextUtils.join(", ", ids);
-            String clause = String.format(" %s IN (%s)", ID_COL, args);
-            db.delete(TABLE_NAME, clause, null);
             db.setTransactionSuccessful();
-            return true;
         } catch (Exception e) {
             Log.d(MessagesRepositoryImpl.class.getName(), "Error while deleting list of messages! " + e.getMessage());
-            return false;
         } finally {
             db.endTransaction();
         }
     }
 
     @Override
-    public boolean deleteMessagesByDevice(Device device) {
+    public void deleteMessagesByDevice(Device device) {
         SQLiteDatabase db = dbManager.getWritableDatabase();
         db.beginTransaction();
         try {
@@ -152,26 +119,22 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
             String id = String.valueOf(device.getId());
             db.delete(TABLE_NAME, clause, new String[]{id, id});
             db.setTransactionSuccessful();
-            return true;
         } catch (Exception e) {
             Log.d(MessagesRepositoryImpl.class.getName(), "Error while deleting device related messages! " + e.getMessage());
-            return false;
         } finally {
             db.endTransaction();
         }
     }
 
     @Override
-    public boolean deleteAllMessages() {
+    public void deleteAllMessages() {
         SQLiteDatabase db = dbManager.getWritableDatabase();
         db.beginTransaction();
         try {
             db.delete(TABLE_NAME, null, null);
             db.setTransactionSuccessful();
-            return true;
         } catch (Exception e) {
             Log.d(MessagesRepositoryImpl.class.getName(), "Error while deleting all messages! " + e.getMessage());
-            return false;
         } finally {
             db.endTransaction();
         }
@@ -193,4 +156,6 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
         }
         return messages;
     }
+
+
 }

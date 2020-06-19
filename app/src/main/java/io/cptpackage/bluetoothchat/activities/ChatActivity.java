@@ -233,15 +233,13 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
     public void onDialogSuccess(int dialogId) {
         switch (dialogId) {
             case DialogsFactory.DELETE_MESSAGES_DIALOG:
-                if(messagesRepository.deleteMessages(messagesAdapter.getSelectedMessages())){
-                    messagesAdapter.deleteSelectedMessages();
-                    scrollToMessagesListBottom();
-                }
+                messagesRepository.deleteMessages(messagesAdapter.getSelectedMessages());
+                messagesAdapter.deleteSelectedMessages();
+                scrollToMessagesListBottom();
                 break;
             case DialogsFactory.DELETE_ALL_MESSAGES_DEVICE_DIALOG:
-                if(messagesRepository.deleteMessagesByDevice(currentDevice)){
-                    messagesAdapter.deleteAllMessages();
-                }
+                messagesRepository.deleteMessagesByDevice(currentDevice);
+                messagesAdapter.deleteAllMessages();
                 break;
         }
         disableSelectableMode();
@@ -320,7 +318,7 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
         if (connectionsManager.isConnected()) {
             if (isConnectedDeviceCurrentOne()) {
                 if (!text.trim().isEmpty()) {
-                    if(encryptionEnabled){
+                    if (encryptionEnabled) {
                         CryptoAgent cryptoAgent = new CryptoAgent(text);
                         String encryptedMessage = cryptoAgent.getEncryptedMessage();
                         Interceptor interceptor = new Interceptor(encryptedMessage);
@@ -338,15 +336,15 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
 
     }
 
-    private void toggleEncryption(){
+    private void toggleEncryption() {
         encryptionEnabled = !encryptionEnabled;
         refreshSearchAndMenu();
         currentDevice.setEncrypted(encryptionEnabled);
         devicesRepository.updateDevice(currentDevice);
-        if(encryptionEnabled){
-            Toast.makeText(this,R.string.toast_encryption_enabled,Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(this,R.string.toast_encryption_disabled,Toast.LENGTH_LONG).show();
+        if (encryptionEnabled) {
+            Toast.makeText(this, R.string.toast_encryption_enabled, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, R.string.toast_encryption_disabled, Toast.LENGTH_LONG).show();
         }
     }
 

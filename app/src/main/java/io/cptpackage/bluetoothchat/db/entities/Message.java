@@ -26,6 +26,14 @@ public class Message implements Entity<Message> {
     public Message() {
     }
 
+    public Message(Message srcMessage){
+        this.sender = srcMessage.getSender();
+        this.receiver = srcMessage.getReceiver();
+        this.date = srcMessage.getDate();
+        this.time = srcMessage.getTime();
+        this.content = srcMessage.getContent();
+    }
+
     public Message(Device sender, Device receiver, String content) {
         this.sender = sender;
         this.receiver = receiver;
@@ -163,12 +171,11 @@ public class Message implements Entity<Message> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        dateAndTimeUtils = DateAndTimeUtils.getInstance();
 
         return sender.getId() == message.sender.getId() &&
                 receiver.getId() == message.receiver.getId() &&
-                dateAndTimeUtils.parseDateToString(date).equals(dateAndTimeUtils.parseDateToString(message.getDate())) &&
-                dateAndTimeUtils.parseDateToString(time).equals(dateAndTimeUtils.parseDateToString(message.getTime())) &&
+                getFullDateString().equals(message.getFullDateString()) &&
+                getFullTimeString().equals(message.getFullTimeString()) &&
                 content.equals(message.content);
     }
 

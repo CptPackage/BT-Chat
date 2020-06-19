@@ -11,17 +11,13 @@ public interface MessagesRepository<T extends Entity> {
 
     List<Message> getMessagesByDevice(Device device);
 
-    List<Message> getMessagesContaining(String keyword);
-
-    boolean deleteMessage(Message message);
-
     boolean exist(Message message);
 
-    boolean deleteMessages(List<Message> message);
+    void deleteMessages(List<Message> message);
 
-    boolean deleteMessagesByDevice(Device device);
+    void deleteMessagesByDevice(Device device);
 
-    boolean deleteAllMessages();
+    void deleteAllMessages();
 
     List<Message> getLatestMessagesByDevices(List<Device> devices);
 }

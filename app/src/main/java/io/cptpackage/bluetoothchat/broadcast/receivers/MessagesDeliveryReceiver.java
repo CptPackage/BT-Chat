@@ -6,13 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
 import io.cptpackage.bluetoothchat.broadcast.callbacks.MessagesDeliveryRequester;
 import io.cptpackage.bluetoothchat.connection.BluetoothConnectionsManager;
 import io.cptpackage.bluetoothchat.connection.Interceptor;
@@ -48,7 +41,6 @@ public class MessagesDeliveryReceiver extends BroadcastReceiver implements Filte
         manager = connectionsManager;
     }
 
-    /* Test the add message if exists as it sometimes adds duplicates, and sometimes doesn't refresh the */
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
