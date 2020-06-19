@@ -1,6 +1,5 @@
 package io.cptpackage.bluetoothchat.activities;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
@@ -22,6 +21,10 @@ import io.cptpackage.bluetoothchat.broadcast.callbacks.DevicesScanRequester;
 import io.cptpackage.bluetoothchat.broadcast.receivers.DeviceConnectionChangeReceiver;
 import io.cptpackage.bluetoothchat.broadcast.receivers.DevicesScanReceiver;
 import io.cptpackage.bluetoothchat.connection.BluetoothUtils;
+import io.cptpackage.bluetoothchat.connection.PairedDevicesSort;
+import io.cptpackage.bluetoothchat.db.entities.Device;
+import io.cptpackage.bluetoothchat.db.repositories.implementation.DevicesRepositoryImpl;
+import io.cptpackage.bluetoothchat.db.repositories.interfaces.DevicesRepository;
 import io.cptpackage.bluetoothchat.lists.adapters.DetailedDevicesAdapter;
 
 import static androidx.recyclerview.widget.RecyclerView.LayoutManager;
@@ -32,7 +35,6 @@ public class ConnectionActivity extends LobbyChildActivity implements View.OnCli
     private BluetoothAdapter bluetoothAdapter;
     private List<BluetoothDevice> pairedDevices = new ArrayList<>();
     private List<BluetoothDevice> foundDevices = new ArrayList<>();
-    private DetailedDevicesAdapter pairedDevicesAdapter;
     private DetailedDevicesAdapter foundDevicesAdapter;
     private DeviceConnectionChangeReceiver connectionChangeReceiver;
 
@@ -64,10 +66,7 @@ public class ConnectionActivity extends LobbyChildActivity implements View.OnCli
             return;
         }
 
-        for (Object device : bluetoothAdapter.getBondedDevices().toArray()) {
-            BluetoothDevice tmpDevice = (BluetoothDevice) device;
-            pairedDevices.add(tmpDevice);
-        }
+        initAndSortPairedDevices();
     }
 
     @Override
@@ -75,6 +74,31 @@ public class ConnectionActivity extends LobbyChildActivity implements View.OnCli
         super.onStop();
         unregisterReceiver(scanReceiver);
         unregisterReceiver(connectionChangeReceiver);
+    }
+
+    private void initAndSortPairedDevices(){
+        List<BluetoothDevice> unsortedPairedDevicesList = new ArrayList<>();
+        for (Object device : bluetoothAdapter.getBondedDevices().toArray()) {
+            BluetoothDevice tmpDevice = (BluetoothDevice) device;
+            unsortedPairedDevicesList.add(tmpDevice);
+        }
+        DevicesRepository<Device> devicesRepository = DevicesRepositoryImpl.getInstance(this);
+        List<Device> contactsList = devicesRepository.getAllDevices();
+        PairedDevicesSort devicesSort = new PairedDevicesSort(unsortedPairedDevicesList,contactsList);
+        pairedDevices.addAll(devicesSort.getSortedDevicesList());
+    }
+
+    private void initRecyclerViews() {
+        RecyclerView pairedDevicesList = findViewById(R.id.paired_devices_list);
+        RecyclerView foundDevicesList = findViewById(R.id.new_devices_list);
+        LayoutManager pairedDevicesLayoutManager = new LinearLayoutManager(this);
+        LayoutManager foundDevicesLayoutManager = new LinearLayoutManager(this);
+        pairedDevicesList.setLayoutManager(pairedDevicesLayoutManager);
+        foundDevicesList.setLayoutManager(foundDevicesLayoutManager);
+        DetailedDevicesAdapter pairedDevicesAdapter = new DetailedDevicesAdapter(this, pairedDevices);
+        foundDevicesAdapter = new DetailedDevicesAdapter(this, foundDevices);
+        pairedDevicesList.setAdapter(pairedDevicesAdapter);
+        foundDevicesList.setAdapter(foundDevicesAdapter);
     }
 
     @Override
@@ -108,19 +132,6 @@ public class ConnectionActivity extends LobbyChildActivity implements View.OnCli
     @Override
     public void notifyNoDevicesFound() {
         Toast.makeText(this, R.string.toast_no_device_found, Toast.LENGTH_LONG).show();
-    }
-
-    private void initRecyclerViews() {
-        RecyclerView pairedDevicesList = findViewById(R.id.paired_devices_list);
-        RecyclerView foundDevicesList = findViewById(R.id.new_devices_list);
-        LayoutManager pairedDevicesLayoutManager = new LinearLayoutManager(this);
-        LayoutManager foundDevicesLayoutManager = new LinearLayoutManager(this);
-        pairedDevicesList.setLayoutManager(pairedDevicesLayoutManager);
-        foundDevicesList.setLayoutManager(foundDevicesLayoutManager);
-        pairedDevicesAdapter = new DetailedDevicesAdapter(this, pairedDevices);
-        foundDevicesAdapter = new DetailedDevicesAdapter(this, foundDevices);
-        pairedDevicesList.setAdapter(pairedDevicesAdapter);
-        foundDevicesList.setAdapter(foundDevicesAdapter);
     }
 
     @Override

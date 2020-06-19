@@ -5,6 +5,8 @@ import android.bluetooth.BluetoothDevice;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import java.util.Objects;
+
 import io.cptpackage.bluetoothchat.security.SecurityConstants;
 import static io.cptpackage.bluetoothchat.db.ddl.DevicesDDL.*;
 
@@ -91,6 +93,11 @@ public class Device implements Entity<Device> {
         setEncrypted(cursor.getInt(2) == 1);
         setAddress(cursor.getString(3));
         return this;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, address);
     }
 
     @NonNull
