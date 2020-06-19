@@ -5,17 +5,15 @@ import android.bluetooth.BluetoothDevice;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import java.util.UUID;
-
 import io.cptpackage.bluetoothchat.security.SecurityConstants;
 import static io.cptpackage.bluetoothchat.db.ddl.DevicesDDL.*;
 
 public class Device implements Entity<Device> {
     private int id;
     private String name;
-    private String key = SecurityConstants.ENCRYPTION_KEY;
+    private String key = SecurityConstants.ENCRYPTION_SECRET_KEY;
     private String address = ":::::";
-    private Boolean encrypted = false;
+    private Boolean encrypted = true;
 
     public Device(){}
 

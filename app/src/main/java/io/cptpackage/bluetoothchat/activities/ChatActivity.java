@@ -26,6 +26,7 @@ import io.cptpackage.bluetoothchat.R;
 import io.cptpackage.bluetoothchat.broadcast.callbacks.MessagesDeliveryRequester;
 import io.cptpackage.bluetoothchat.broadcast.receivers.MessagesDeliveryReceiver;
 import io.cptpackage.bluetoothchat.connection.BluetoothConnectionsManager;
+import io.cptpackage.bluetoothchat.connection.Interceptor;
 import io.cptpackage.bluetoothchat.db.entities.Device;
 import io.cptpackage.bluetoothchat.db.entities.Message;
 import io.cptpackage.bluetoothchat.db.repositories.implementation.DevicesRepositoryImpl;
@@ -37,6 +38,7 @@ import io.cptpackage.bluetoothchat.dialogs.DialogsFactory;
 import io.cptpackage.bluetoothchat.lists.adapters.EmoticonsAdapter;
 import io.cptpackage.bluetoothchat.lists.adapters.MessagesAdapter;
 import io.cptpackage.bluetoothchat.lists.adapters.MessagesSelectionController;
+import io.cptpackage.bluetoothchat.security.CryptoAgent;
 
 import static androidx.appcompat.widget.SearchView.OnQueryTextListener;
 
@@ -126,10 +128,7 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
                 }
                 return super.onOptionsItemSelected(item);
             case R.id.toggle_encryption:
-                encryptionEnabled = !encryptionEnabled;
-                currentDevice.setEncrypted(encryptionEnabled);
-                devicesRepository.updateDevice(currentDevice);
-                refreshSearchAndMenu();
+                toggleEncryption();
                 return true;
             case R.id.delete_all_messages:
                 DialogsFactory allMessagesDialogFactory = new DialogsFactory(this, this);
@@ -203,7 +202,6 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
             scrollToMessagesListBottom();
         }
     }
-
 
     @Override
     public boolean isSelectionModeOn() {
@@ -318,6 +316,12 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
         if (connectionsManager.isConnected()) {
             if (isConnectedDeviceCurrentOne()) {
                 if (!text.trim().isEmpty()) {
+                    if(encryptionEnabled){
+                        CryptoAgent cryptoAgent = new CryptoAgent(text);
+                        String encryptedMessage = cryptoAgent.getEncryptedMessage();
+                        Interceptor interceptor = new Interceptor(encryptedMessage);
+                        text = interceptor.getPayload(true);
+                    }
                     connectionsManager.sendData(text);
                     chatField.setText("");
                 }
@@ -328,6 +332,18 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
             Toast.makeText(this, R.string.toast_not_connected_to_any_device, Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    private void toggleEncryption(){
+        encryptionEnabled = !encryptionEnabled;
+        refreshSearchAndMenu();
+        currentDevice.setEncrypted(encryptionEnabled);
+        devicesRepository.updateDevice(currentDevice);
+        if(encryptionEnabled){
+            Toast.makeText(this,R.string.toast_encryption_enabled,Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this,R.string.toast_encryption_disabled,Toast.LENGTH_LONG).show();
+        }
     }
 
 }

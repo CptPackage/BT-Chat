@@ -6,4 +6,5 @@ public interface MessagesDeliveryRequester {
     void notifyIncomingMessage(Message message);
 
     void notifyOutgoingMessage(Message message);
+
 }

@@ -14,4 +14,5 @@ public final class  ConnectionConstants {
     public static final int CLIENT_CREATED_CONNECTION = 101;
     public static final int SERVER_CREATED_CONNECTION = 102;
 
+
 }

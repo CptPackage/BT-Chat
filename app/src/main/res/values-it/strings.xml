@@ -47,4 +47,6 @@
     <string name="toast_attempt_to_connect">Connessione in corso!</string>
     <string name="toast_connected">Connessione Stabilita con %1$s!</string>
     <string name="toast_disconnected">Connessione Persa!</string>
+    <string name="toast_encryption_enabled">Crittografia dei dati abilitata</string>
+    <string name="toast_encryption_disabled">Crittografia dei dati disabilitata</string>
 </resources>

@@ -46,4 +46,6 @@
     <string name="toast_attempt_to_connect">Attempting to connect!</string>
     <string name="toast_connected">Connection Established %1$s!</string>
     <string name="toast_disconnected">Disconnected!</string>
+    <string name="toast_encryption_enabled">Data encryption enabled</string>
+    <string name="toast_encryption_disabled">Data encryption disabled</string>
 </resources>

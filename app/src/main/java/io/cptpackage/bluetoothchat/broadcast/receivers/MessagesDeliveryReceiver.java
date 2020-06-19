@@ -4,15 +4,25 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.Log;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import io.cptpackage.bluetoothchat.broadcast.callbacks.MessagesDeliveryRequester;
 import io.cptpackage.bluetoothchat.connection.BluetoothConnectionsManager;
+import io.cptpackage.bluetoothchat.connection.Interceptor;
 import io.cptpackage.bluetoothchat.db.entities.Device;
 import io.cptpackage.bluetoothchat.db.entities.Message;
 import io.cptpackage.bluetoothchat.db.repositories.implementation.DevicesRepositoryImpl;
 import io.cptpackage.bluetoothchat.db.repositories.implementation.MessagesRepositoryImpl;
 import io.cptpackage.bluetoothchat.db.repositories.interfaces.DevicesRepository;
 import io.cptpackage.bluetoothchat.db.repositories.interfaces.MessagesRepository;
+import io.cptpackage.bluetoothchat.security.CryptoAgent;
 
 import static io.cptpackage.bluetoothchat.broadcast.BroadcastConstants.INCOMING_MESSAGE;
 import static io.cptpackage.bluetoothchat.broadcast.BroadcastConstants.KEY_INCOMING_MESSAGE;
@@ -53,6 +63,7 @@ public class MessagesDeliveryReceiver extends BroadcastReceiver implements Filte
                     }
                     String incomingMessageContent = intent.getStringExtra(KEY_INCOMING_MESSAGE);
                     Message incomingMessage = new Message(sender, personalDevice, incomingMessageContent);
+                    interceptAndCryptoCheck(incomingMessage);
                     if (messagesDeliveryRequester == null && !messagesRepository.exist(incomingMessage)) {
                         messagesRepository.addMessage(incomingMessage);
                     }
@@ -65,6 +76,7 @@ public class MessagesDeliveryReceiver extends BroadcastReceiver implements Filte
                     Device receiver = new Device(manager.getConnectedDevice());
                     receiver = devicesRepository.getDeviceByName(receiver.getName());
                     Message outgoingMessage = new Message(personalDevice, receiver, outgoingMessageContent);
+                    interceptAndCryptoCheck(outgoingMessage);
                     if (messagesDeliveryRequester == null && !messagesRepository.exist(outgoingMessage)) {
                         messagesRepository.addMessage(outgoingMessage);
                     }
@@ -92,6 +104,23 @@ public class MessagesDeliveryReceiver extends BroadcastReceiver implements Filte
         if (manager == null) {
             manager = BluetoothConnectionsManager.getInstance(context);
         }
+    }
+
+
+    private void interceptAndCryptoCheck(Message incomingMessage) {
+        Interceptor interceptor = new Interceptor(incomingMessage);
+        if (interceptor.isEncrypted()) {
+            String payload = interceptor.getPayload(false);
+            CryptoAgent cryptoAgent = new CryptoAgent(payload);
+            try {
+                String decryptedMessage = cryptoAgent.getDecryptedMessage();
+                incomingMessage.setContent(decryptedMessage);
+            } catch (Exception e) {
+                Log.e(TAG, "Corrupted message, removing prefix without decryption!");
+                incomingMessage.setContent(interceptor.getPayload(false));
+            }
+        }
+
     }
 
     @Override

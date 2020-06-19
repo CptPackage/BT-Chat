@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ import io.cptpackage.bluetoothchat.broadcast.callbacks.MessagesDeliveryRequester
 import io.cptpackage.bluetoothchat.broadcast.receivers.DeviceConnectionChangeReceiver;
 import io.cptpackage.bluetoothchat.broadcast.receivers.MessagesDeliveryReceiver;
 import io.cptpackage.bluetoothchat.connection.BluetoothConnectionsManager;
+import io.cptpackage.bluetoothchat.connection.Interceptor;
 import io.cptpackage.bluetoothchat.db.entities.Device;
 import io.cptpackage.bluetoothchat.db.entities.Message;
 import io.cptpackage.bluetoothchat.db.repositories.implementation.DevicesRepositoryImpl;
@@ -33,6 +35,7 @@ import io.cptpackage.bluetoothchat.db.repositories.interfaces.MessagesRepository
 import io.cptpackage.bluetoothchat.dialogs.DialogRequester;
 import io.cptpackage.bluetoothchat.dialogs.DialogsFactory;
 import io.cptpackage.bluetoothchat.lists.adapters.ConversationsAdapter;
+import io.cptpackage.bluetoothchat.security.CryptoAgent;
 
 public class LobbyActivity extends AppCompatActivity implements View.OnClickListener,
         MessagesDeliveryRequester, DeviceConnectionChangeRequester, DialogRequester {
@@ -120,6 +123,15 @@ public class LobbyActivity extends AppCompatActivity implements View.OnClickList
     public void notifyIncomingMessage(Message message) {
         Toast.makeText(this, String.format("[%s]: %s", message.getSender().getName(), message.getContent()),
                 Toast.LENGTH_LONG).show();
+       updateLastContactMessage(message);
+    }
+
+    @Override
+    public void notifyOutgoingMessage(Message message) {
+        updateLastContactMessage(message);
+    }
+
+    private void updateLastContactMessage(Message message){
         int senderId = message.getSender().getId();
         int receiverId = message.getReceiver().getId();
         for (Device device : devicesList) {
@@ -131,9 +143,6 @@ public class LobbyActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @Override
-    public void notifyOutgoingMessage(Message message) {
-    }
 
     private void refreshContactsList() {
         devicesList.clear();

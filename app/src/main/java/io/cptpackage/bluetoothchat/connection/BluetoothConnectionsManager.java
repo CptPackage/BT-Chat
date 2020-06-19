@@ -201,7 +201,7 @@ public class BluetoothConnectionsManager {
 
     public void sendData(String message) {
         if (isConnected()) {
-            Log.e(TAG, "Sending outgoing message!");
+            Log.d(TAG, "Sending outgoing message!");
             byte[] dataBuffer = message.getBytes();
             connectionEstablishedThread.write(dataBuffer);
             Intent dataIntent = new Intent(MESSAGE_DELIVERY_BROADCAST);
