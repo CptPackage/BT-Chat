@@ -23,7 +23,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder implements View.O
     private MessagesAdapter adapter;
     private Drawable selectedBackground;
     private Message message;
-    private DateAndTimeUtils timeUtils = DateAndTimeUtils.getInstance();
+    private DateAndTimeUtils timeUtils;
 
     public MessageViewHolder(@NonNull View itemView, Device personalDevice, MessagesAdapter adapter, Drawable selectedBackground) {
         super(itemView);
@@ -33,6 +33,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder implements View.O
         personalDeviceId = personalDevice.getId();
         this.adapter = adapter;
         this.selectedBackground = selectedBackground;
+        timeUtils = DateAndTimeUtils.getInstance();
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
     }
@@ -41,10 +42,10 @@ public class MessageViewHolder extends RecyclerView.ViewHolder implements View.O
         this.message = message;
         setMessageAlignment(message);
         setStyleIfSelectable();
-        if (!timeUtils.parseDateToStringCompacted(timeUtils.now()).equals(message.getDateString())) {
-            time.setText(String.format("%s %s", message.getDateString(), message.getTimeString()));
+        if (!timeUtils.parseDateToStringCompacted(timeUtils.now()).equals(message.getShortDateString())) {
+            time.setText(String.format("%s %s", message.getShortDateString(), message.getShortTimeString()));
         } else {
-            time.setText(message.getTimeString());
+            time.setText(message.getShortTimeString());
         }
         messageContent.setText(message.getContent());
     }

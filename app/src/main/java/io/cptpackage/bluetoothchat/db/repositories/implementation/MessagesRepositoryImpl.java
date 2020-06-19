@@ -115,7 +115,7 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
         String senderId = String.valueOf(message.getSender().getId());
         String receiverId = String.valueOf(message.getReceiver().getId());
         Cursor cursor = db.rawQuery(query, new String[]{senderId, receiverId,
-                message.getDateString(), message.getTimeString(), message.getContent()});
+                message.getFullDateString(), message.getFullTimeString(), message.getContent()});
         boolean result = cursor.getCount() > 0;
         cursor.close();
         return result;

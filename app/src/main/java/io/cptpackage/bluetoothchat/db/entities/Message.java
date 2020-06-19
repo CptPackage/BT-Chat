@@ -83,8 +83,12 @@ public class Message implements Entity<Message> {
         this.date = date;
     }
 
-    public String getDateString() {
+    public String getShortDateString() {
         return DateAndTimeUtils.getInstance().parseDateToStringCompacted(date);
+    }
+
+    public String getFullDateString() {
+        return DateAndTimeUtils.getInstance().parseDateToString(date);
     }
 
     public Date getTime() {
@@ -95,8 +99,12 @@ public class Message implements Entity<Message> {
         this.time = time;
     }
 
-    public String getTimeString() {
+    public String getShortTimeString() {
         return DateAndTimeUtils.getInstance().parseTimeToStringCompacted(time);
+    }
+
+    public String getFullTimeString() {
+        return DateAndTimeUtils.getInstance().parseTimeToString(time);
     }
 
 

@@ -233,13 +233,15 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
     public void onDialogSuccess(int dialogId) {
         switch (dialogId) {
             case DialogsFactory.DELETE_MESSAGES_DIALOG:
-                messagesRepository.deleteMessages(messagesAdapter.getSelectedMessages());
-                messagesAdapter.deleteSelectedMessages();
-                scrollToMessagesListBottom();
+                if(messagesRepository.deleteMessages(messagesAdapter.getSelectedMessages())){
+                    messagesAdapter.deleteSelectedMessages();
+                    scrollToMessagesListBottom();
+                }
                 break;
             case DialogsFactory.DELETE_ALL_MESSAGES_DEVICE_DIALOG:
-                messagesRepository.deleteMessagesByDevice(currentDevice);
-                messagesAdapter.deleteAllMessages();
+                if(messagesRepository.deleteMessagesByDevice(currentDevice)){
+                    messagesAdapter.deleteAllMessages();
+                }
                 break;
         }
         disableSelectableMode();

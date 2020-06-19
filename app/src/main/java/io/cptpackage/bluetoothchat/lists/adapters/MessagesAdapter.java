@@ -112,10 +112,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessageViewHolder> imp
         notifyDataSetChanged();
     }
 
-    public List<Message> getDisplayedMessages() {
-        return displayedMessagesList;
-    }
-
     public List<Message> getAllMessages() {
         return allMessagesList;
     }
@@ -127,11 +123,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessageViewHolder> imp
         displayedMessagesList.addAll(messages);
         notifyDataSetChanged();
     }
-
-    public int getListBottomPosition() {
-        return displayedMessagesList.size() - 1;
-    }
-
 
     @Override
     public Filter getFilter() {
