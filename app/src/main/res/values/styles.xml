@@ -1,17 +1,29 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="LightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="defaultBackgroundImg">@drawable/img_default_chat_bg</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="actionBarIconsColor">@android:color/white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDarkTranslucent">@color/colorPrimaryDarkTranslucent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="wideButtonBackgroundColor">@color/btnBgColor</item>
+        <item name="wideButtonTextColor">@color/btnTextColor</item>
+        <item name="emoticonButtonBgColor">?attr/colorSecondary</item>
+        <item name="emoticonButtonIconColor">?attr/colorPrimaryDark</item>
+        <item name="emoticonsBarColor">?attr/colorAccent</item>
+        <item name="sendButtonBgColor">?attr/colorPrimaryDark</item>
+        <item name="sendButtonIconColor">@android:color/white</item>
+        <item name="separatorColor">@color/separatorColor</item>
+    </style>
+
+    <style name="LightThemeNoBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppThemeNoBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="DialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+    <style name="LightDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>

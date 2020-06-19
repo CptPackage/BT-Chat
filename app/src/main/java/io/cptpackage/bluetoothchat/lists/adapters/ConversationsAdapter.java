@@ -1,6 +1,7 @@
 package io.cptpackage.bluetoothchat.lists.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,13 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationViewH
         Device device = devices.get(position);
         if(lastMessages.size() > position){
             Message message = lastMessages.get(position);
-            holder.setLastMessage(message.getContent());
+            int senderId = message.getSender().getId();
+            int receiverId = message.getReceiver().getId();
+            if(senderId == device.getId() || receiverId == device.getId()){
+                holder.setLastMessage(message.getContent());
+            }
+        }else{
+            holder.setLastMessage("");
         }
         holder.setContactName(device.getName());
     }

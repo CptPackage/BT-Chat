@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="distance_xxs">4dp</dimen>
+    <dimen name="distance_xs">6dp</dimen>
+    <dimen name="distance_sm">8dp</dimen>
+    <dimen name="distance_md">10dp</dimen>
+    <dimen name="distance_lg">12dp</dimen>
+    <dimen name="distance_xlg">14dp</dimen>
+    <dimen name="distance_xxlg">16dp</dimen>
+    <dimen name="distance_xxxlg">18dp</dimen>
+    <dimen name="distance_hg">20dp</dimen>
+    <dimen name="distance_xhg">24dp</dimen>
+    <dimen name="distance_xxhg">32dp</dimen>
+
+    <dimen name="text_size_xxs">12sp</dimen>
+    <dimen name="text_size_xs">14sp</dimen>
+    <dimen name="text_size_sm">16sp</dimen>
+    <dimen name="text_size_md">18sp</dimen>
+    <dimen name="text_size_lg">24sp</dimen>
+    <dimen name="text_size_xlg">26sp</dimen>
+    <dimen name="text_size_xxlg">30sp</dimen>
+    <dimen name="text_size_hg">45sp</dimen>
+
+    <dimen name="separator_thickness">1dp</dimen>
+</resources>

@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#9DB5B2</color>
     <color name="colorPrimaryDark">#476A6F</color>
+    <color name="colorPrimaryDarkTranslucent">#B0476A6F</color>
     <color name="colorAccent">#F5EFFF</color>
     <color name="colorSecondary">#DAF0EE</color>
     <color name="btnBgColor">#DAF0EE</color>

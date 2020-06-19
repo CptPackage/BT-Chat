@@ -19,7 +19,7 @@ public class DialogsFactory implements DialogInterface.OnClickListener {
 
     public DialogsFactory(Context context, DialogRequester dialogRequester) {
         this.dialogRequester = dialogRequester;
-        builder = new Builder(context, R.style.DialogTheme);
+        builder = new Builder(context, R.style.LightDialogTheme);
     }
 
     public AlertDialog createDialog(int dialogId) {

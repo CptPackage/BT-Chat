@@ -14,7 +14,7 @@
     <string name="reg_field_placeholder">John Doe</string>
     <string name="reg_submit_button">Avant</string>
 
-    <string name="request_permissions_header">Accettare i permessi rechiesti come sono essenziali per la funzionalità!</string>
+    <string name="request_permissions_header">Accettare i permessi rechiesti come sono essenziali per il funzionamento!</string>
     <string name="request_permissions_button">Richiedi i permessi</string>
     <string name="request_permissions_hint">Premi Richiedi i permessi per mostrare il dialogo</string>
 

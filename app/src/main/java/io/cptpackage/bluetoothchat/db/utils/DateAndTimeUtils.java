@@ -18,14 +18,16 @@ public class DateAndTimeUtils {
     private static DateAndTimeUtils instance;
 
     private DateAndTimeUtils() {
-        TimeZone timezone = TimeZone.getTimeZone("Europe/Rome");
-        dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
-        compactDateFormat = new SimpleDateFormat("dd-MM", Locale.ITALY);
-        compactTimeFormat = new SimpleDateFormat("HH:mm", Locale.ITALY);
-        timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.ITALY);
+        TimeZone timezone = TimeZone.getDefault();
+        Locale locale = Locale.getDefault();
+        dateFormat = new SimpleDateFormat("dd-MM-yyyy", locale);
+        compactDateFormat = new SimpleDateFormat("dd-MM", locale);
+        compactTimeFormat = new SimpleDateFormat("HH:mm", locale);
+        timeFormat = new SimpleDateFormat("HH:mm:ss", locale);
         dateFormat.setTimeZone(timezone);
         timeFormat.setTimeZone(timezone);
-        GregorianCalendar.getInstance().setTimeZone(timezone);
+        compactDateFormat.setTimeZone(timezone);
+        compactTimeFormat.setTimeZone(timezone);
     }
 
     public static DateAndTimeUtils getInstance() {

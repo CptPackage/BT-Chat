@@ -22,7 +22,6 @@ public class Message implements Entity<Message> {
     private Date date;
     private Date time;
     private String content;
-    private boolean messageSelected;
 
     public Message() {
     }
@@ -107,14 +106,6 @@ public class Message implements Entity<Message> {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public boolean isMessageSelected() {
-        return messageSelected;
-    }
-
-    public void setMessageSelected(boolean messageSelected) {
-        this.messageSelected = messageSelected;
     }
 
     @Override

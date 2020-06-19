@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,7 +11,10 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +27,6 @@ import io.cptpackage.bluetoothchat.broadcast.callbacks.MessagesDeliveryRequester
 import io.cptpackage.bluetoothchat.broadcast.receivers.DeviceConnectionChangeReceiver;
 import io.cptpackage.bluetoothchat.broadcast.receivers.MessagesDeliveryReceiver;
 import io.cptpackage.bluetoothchat.connection.BluetoothConnectionsManager;
-import io.cptpackage.bluetoothchat.connection.Interceptor;
 import io.cptpackage.bluetoothchat.db.entities.Device;
 import io.cptpackage.bluetoothchat.db.entities.Message;
 import io.cptpackage.bluetoothchat.db.repositories.implementation.DevicesRepositoryImpl;
@@ -35,7 +36,6 @@ import io.cptpackage.bluetoothchat.db.repositories.interfaces.MessagesRepository
 import io.cptpackage.bluetoothchat.dialogs.DialogRequester;
 import io.cptpackage.bluetoothchat.dialogs.DialogsFactory;
 import io.cptpackage.bluetoothchat.lists.adapters.ConversationsAdapter;
-import io.cptpackage.bluetoothchat.security.CryptoAgent;
 
 public class LobbyActivity extends AppCompatActivity implements View.OnClickListener,
         MessagesDeliveryRequester, DeviceConnectionChangeRequester, DialogRequester {

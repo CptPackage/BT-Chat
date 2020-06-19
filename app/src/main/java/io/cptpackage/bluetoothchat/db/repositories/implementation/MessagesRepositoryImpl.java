@@ -12,7 +12,6 @@ import java.util.List;
 import io.cptpackage.bluetoothchat.db.entities.Device;
 import io.cptpackage.bluetoothchat.db.entities.Message;
 import io.cptpackage.bluetoothchat.db.manager.DBManager;
-import io.cptpackage.bluetoothchat.db.repositories.interfaces.DevicesRepository;
 import io.cptpackage.bluetoothchat.db.repositories.interfaces.MessagesRepository;
 
 import static io.cptpackage.bluetoothchat.db.ddl.MessagesDDL.CONTENT_COL;
@@ -27,11 +26,9 @@ import static io.cptpackage.bluetoothchat.db.ddl.MessagesDDL.TIME_COL;
 public class MessagesRepositoryImpl implements MessagesRepository<Message> {
     private static DBManager dbManager;
     private static MessagesRepository<Message> instance;
-    private static DevicesRepository<Device> devicesRepository;
 
     private MessagesRepositoryImpl(Context context) {
         dbManager = DBManager.getInstance(context);
-        devicesRepository = DevicesRepositoryImpl.getInstance(context);
     }
 
     public static MessagesRepository<Message> getInstance(Context context) {
@@ -94,7 +91,7 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
         SQLiteDatabase db = dbManager.getWritableDatabase();
         db.beginTransaction();
         try {
-            String clause = String.format(" %s=?", ID_COL);
+            String clause = String.format("%s=?", ID_COL);
             db.delete(TABLE_NAME, clause, new String[]{String.valueOf(message.getId())});
             db.setTransactionSuccessful();
             return true;
@@ -183,7 +180,8 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
     @Override
     public List<Message> getLatestMessagesByDevices(List<Device> devices) {
         SQLiteDatabase db = dbManager.getReadableDatabase();
-        String query = String.format("SELECT * FROM %s WHERE %s = ? OR %s = ? ORDER BY %s DESC LIMIT 1", TABLE_NAME, SENDER_ID_COL, RECEIVER_ID_COL, ID_COL);
+        String query = String.format("SELECT * FROM %s WHERE %s = ? OR %s = ? ORDER BY %s DESC LIMIT 1",
+                TABLE_NAME, SENDER_ID_COL, RECEIVER_ID_COL, ID_COL);
         List<Message> messages = new ArrayList<>();
         for (Device device : devices) {
             String id = String.valueOf(device.getId());

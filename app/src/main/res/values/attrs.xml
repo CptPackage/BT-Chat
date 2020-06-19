@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="defaultBackgroundImg" format="reference"/>
+    <attr name="colorPrimaryDarkTranslucent" format="color"/>
+    <attr name="colorSecondary" format="color"/>
+    <attr name="wideButtonBackgroundColor" format="color"/>
+    <attr name="wideButtonTextColor" format="color"/>
+    <attr name="actionBarIconsColor" format="color"/>
+    <attr name="sendButtonBgColor" format="color"/>
+    <attr name="sendButtonIconColor" format="color"/>
+    <attr name="emoticonButtonBgColor" format="color"/>
+    <attr name="emoticonButtonIconColor" format="color"/>
+    <attr name="emoticonsBarColor" format="color"/>
+    <attr name="separatorColor" format="color"/>
 </resources>
