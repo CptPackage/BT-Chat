@@ -64,9 +64,6 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        initData();
-        initEmoticonList();
-        initMessagesList();
         chatField = findViewById(R.id.chat_input);
         chatField.setOnEditorActionListener(this);
         ImageButton emoticonButton = findViewById(R.id.emoticon_button);
@@ -74,6 +71,9 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
         emoticonButton.setOnClickListener(this);
         sendButton.setOnClickListener(this);
         connectionsManager = BluetoothConnectionsManager.getInstance(this);
+        initData();
+        initEmoticonList();
+        initMessagesList();
     }
 
     @Override
@@ -166,6 +166,7 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
         List<Message> messages = messagesRepository.getMessagesByDevice(currentDevice);
         Device personalDevice = devicesRepository.getPersonalDevice();
         RecyclerView messagesList = findViewById(R.id.chat_list);
+        messagesList.setHasFixedSize(true);
         Drawable selectedMessageBackground = getResources().getDrawable(R.drawable.shape_selected_message, getTheme());
         messagesAdapter = new MessagesAdapter(messages, personalDevice, this, selectedMessageBackground);
         messagesList.setAdapter(messagesAdapter);
@@ -177,6 +178,7 @@ public class ChatActivity extends LobbyChildActivity implements View.OnClickList
 
     private void initEmoticonList() {
         emoticonsList = findViewById(R.id.emoticons_list);
+        emoticonsList.setHasFixedSize(true);
         EmoticonsAdapter emoticonsAdapter = new EmoticonsAdapter(chatField);
         emoticonsList.setAdapter(emoticonsAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,

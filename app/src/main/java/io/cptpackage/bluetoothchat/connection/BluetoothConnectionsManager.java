@@ -67,13 +67,13 @@ public class BluetoothConnectionsManager {
             clientConnectionThread = null;
         }
 
-        // Cancel any thread currently running a connection
+        // Cancel any thread with an established connection
         if (connectionEstablishedThread != null) {
             connectionEstablishedThread.close();
             connectionEstablishedThread = null;
         }
 
-        // Start the thread to listen on a BluetoothServerSocket
+        // Start the server thread to start listening
         if (serverConnectionThread != null) {
             serverConnectionThread.close();
             serverConnectionThread = null;
@@ -106,6 +106,10 @@ public class BluetoothConnectionsManager {
     }
 
     public void attemptToConnect(BluetoothDevice device) {
+        if(!adapter.isEnabled()){
+            BluetoothUtils.enableBluetoothIfDisabled();
+            return;
+        }
         switch (state) {
             case STATE_ATTEMPTING_CONNECTION:
                 if (serverConnectionThread != null) {
@@ -135,8 +139,10 @@ public class BluetoothConnectionsManager {
 
     public synchronized void startCommunicationStreams(BluetoothSocket socket, BluetoothDevice
             device, int ConnectionCreator) {
-
-
+        if(!adapter.isEnabled()){
+            BluetoothUtils.enableBluetoothIfDisabled();
+            return;
+        }
         switch (ConnectionCreator) {
             case SERVER_CREATED_CONNECTION:
                 if (clientConnectionThread != null) {
@@ -178,6 +184,7 @@ public class BluetoothConnectionsManager {
             clientConnectionThread.close();
             clientConnectionThread = null;
         }
+
         this.start();
     }
 

@@ -35,7 +35,7 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationViewH
     @Override
     public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
         Device device = devices.get(position);
-        if(lastMessages.size() > 0){
+        if(lastMessages.size() > position){
             Message message = lastMessages.get(position);
             holder.setLastMessage(message.getContent());
         }

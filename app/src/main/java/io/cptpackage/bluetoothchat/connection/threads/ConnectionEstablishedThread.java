@@ -62,7 +62,6 @@ public class ConnectionEstablishedThread extends Thread {
     }
 
 
-
     /**
      * Write to the connected OutStream.
      *
