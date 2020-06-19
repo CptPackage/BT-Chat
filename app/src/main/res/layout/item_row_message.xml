@@ -4,15 +4,14 @@
     android:id="@+id/chat_message_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/selector_message"
     android:clickable="true"
     android:focusable="true">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="@dimen/distance_sm"
+        android:layout_marginVertical="@dimen/distance_sm"
         android:elevation="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,8 +19,8 @@
             android:layout_height="wrap_content"
             android:minWidth="90dp"
             android:minHeight="55dp"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp">
+            android:paddingHorizontal="@dimen/distance_lg"
+            android:paddingVertical="@dimen/distance_sm">
 
 
             <TextView
@@ -31,9 +30,9 @@
                 android:ellipsize="none"
                 android:maxLines="20"
                 android:scrollHorizontally="false"
-                android:text="Text Message"
+                android:text=""
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_md"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,8 +40,8 @@
                 android:id="@+id/chat_message_date_and_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date And Time"
-                android:textSize="12sp"
+                android:text=""
+                android:textSize="@dimen/text_size_xxs"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
