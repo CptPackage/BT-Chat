@@ -151,6 +151,8 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
             Cursor cursor = db.rawQuery(query, new String[]{id, id});
             if (cursor.moveToFirst()) {
                 messages.add(new Message().compile(cursor));
+            }else{
+                messages.add(null);
             }
             cursor.close();
         }

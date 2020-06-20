@@ -12,4 +12,6 @@
     <attr name="emoticonButtonIconColor" format="color"/>
     <attr name="emoticonsBarColor" format="color"/>
     <attr name="separatorColor" format="color"/>
+    <attr name="contactIconColor" format="color"/>
+    <attr name="contactBgColor" format="color"/>
 </resources>
