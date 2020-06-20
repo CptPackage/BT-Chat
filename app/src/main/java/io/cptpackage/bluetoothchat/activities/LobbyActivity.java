@@ -186,6 +186,7 @@ public class LobbyActivity extends AppCompatActivity implements View.OnClickList
         if (dialogId == DialogsFactory.DELETE_ALL_MESSAGES_GLOBAL_DIALOG) {
             MessagesRepository<Message> messagesRepository = MessagesRepositoryImpl.getInstance(this);
             messagesRepository.deleteAllMessages();
+            refreshContactsList();
         }
     }
 
