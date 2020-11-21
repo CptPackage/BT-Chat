@@ -10,7 +10,6 @@ import java.util.List;
 import io.cptpackage.bluetoothchat.db.entities.Device;
 
 public class PairedDevicesSort {
-
     List<Device> contactsList;
     List<BluetoothDevice> devicesList;
 

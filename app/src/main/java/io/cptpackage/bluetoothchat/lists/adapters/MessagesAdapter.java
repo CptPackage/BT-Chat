@@ -19,6 +19,10 @@ import io.cptpackage.bluetoothchat.lists.filters.MessagesFilter;
 import io.cptpackage.bluetoothchat.lists.filters.MessagesFilteringRequester;
 import io.cptpackage.bluetoothchat.lists.viewholders.MessageViewHolder;
 
+/**
+ *Chat Messages List Controller
+ *
+ * */
 public class MessagesAdapter extends RecyclerView.Adapter<MessageViewHolder> implements Filterable, MessagesFilteringRequester {
     private List<Message> displayedMessagesList;
     private List<Message> allMessagesList;

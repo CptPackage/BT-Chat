@@ -27,7 +27,6 @@ public class ServerConnectionThread extends Thread {
     public ServerConnectionThread(BluetoothConnectionsManager connectionsManager, BluetoothAdapter adapter, UUID deviceUUID) {
         BluetoothServerSocket tmpSocket = null;
         this.connectionsManager = connectionsManager;
-        // Create a new listening server socket
         try {
             tmpSocket = adapter.listenUsingInsecureRfcommWithServiceRecord(
                     SERVICE_RECORD_NAME, deviceUUID);

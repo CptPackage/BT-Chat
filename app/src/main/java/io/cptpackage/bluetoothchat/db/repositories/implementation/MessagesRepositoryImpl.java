@@ -41,6 +41,7 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
         return instance;
     }
 
+    /*Persists the given message in the database*/
     @Override
     public boolean addMessage(Message message) {
         SQLiteDatabase db = dbManager.getWritableDatabase();
@@ -70,13 +71,13 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
         return messages;
     }
 
+    /*Checks if a message exist by sender, receiver, date, time and content, as a new message doesn't have an ID */
     @Override
     public boolean exist(Message message) {
         SQLiteDatabase db = dbManager.getReadableDatabase();
         if (message.getSender() == null || message.getReceiver() == null) {
             return false;
         }
-
         String query = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ? AND %s = ? AND %s = ? AND %s = ?",
                 TABLE_NAME, SENDER_ID_COL, RECEIVER_ID_COL, DATE_COL, TIME_COL, CONTENT_COL);
         String senderId = String.valueOf(message.getSender().getId());
@@ -88,6 +89,38 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
         return result;
     }
 
+    @Override
+    public void deleteMessagesByDevice(Device device) {
+        SQLiteDatabase db = dbManager.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            String clause = String.format("%s = ? OR %s = ?", SENDER_ID_COL, RECEIVER_ID_COL);
+            String id = String.valueOf(device.getId());
+            db.delete(TABLE_NAME, clause, new String[]{id, id});
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d(MessagesRepositoryImpl.class.getName(), "Error while deleting device related messages! " + e.getMessage());
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    /*Flushes all messsages inside the messages table */
+    @Override
+    public void deleteAllMessages() {
+        SQLiteDatabase db = dbManager.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            db.delete(TABLE_NAME, null, null);
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d(MessagesRepositoryImpl.class.getName(), "Error while deleting all messages! " + e.getMessage());
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    /*Deletes messages list by sender, receiver, date, time and content, as a new message doesn't have an ID */
     @Override
     public void deleteMessages(List<Message> messages) {
         SQLiteDatabase db = dbManager.getWritableDatabase();
@@ -110,36 +143,7 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
         }
     }
 
-    @Override
-    public void deleteMessagesByDevice(Device device) {
-        SQLiteDatabase db = dbManager.getWritableDatabase();
-        db.beginTransaction();
-        try {
-            String clause = String.format("%s = ? OR %s = ?", SENDER_ID_COL, RECEIVER_ID_COL);
-            String id = String.valueOf(device.getId());
-            db.delete(TABLE_NAME, clause, new String[]{id, id});
-            db.setTransactionSuccessful();
-        } catch (Exception e) {
-            Log.d(MessagesRepositoryImpl.class.getName(), "Error while deleting device related messages! " + e.getMessage());
-        } finally {
-            db.endTransaction();
-        }
-    }
-
-    @Override
-    public void deleteAllMessages() {
-        SQLiteDatabase db = dbManager.getWritableDatabase();
-        db.beginTransaction();
-        try {
-            db.delete(TABLE_NAME, null, null);
-            db.setTransactionSuccessful();
-        } catch (Exception e) {
-            Log.d(MessagesRepositoryImpl.class.getName(), "Error while deleting all messages! " + e.getMessage());
-        } finally {
-            db.endTransaction();
-        }
-    }
-
+    /*Retrieves list of last sent/received messages by device, and order them by ID as the ID is incremental*/
     @Override
     public List<Message> getLatestMessagesByDevices(List<Device> devices) {
         SQLiteDatabase db = dbManager.getReadableDatabase();
@@ -152,12 +156,11 @@ public class MessagesRepositoryImpl implements MessagesRepository<Message> {
             if (cursor.moveToFirst()) {
                 messages.add(new Message().compile(cursor));
             }else{
+                //A null message is put, so there won't be empty slots if a device in between doesn't have a last message
                 messages.add(null);
             }
             cursor.close();
         }
         return messages;
     }
-
-
 }

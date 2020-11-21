@@ -1,5 +1,6 @@
 package io.cptpackage.bluetoothchat.connection;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -101,7 +102,6 @@ public class BluetoothConnectionsManager {
         }
 
         connectedDevice = null;
-
         state = STATE_STOPPED;
     }
 

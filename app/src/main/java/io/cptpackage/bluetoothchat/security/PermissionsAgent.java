@@ -7,7 +7,10 @@ import android.os.Build;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
+/**
+ * Requests the required permissions for the application functionality
+ *
+ * */
 public class PermissionsAgent {
     private Context context;
 
@@ -20,11 +23,8 @@ public class PermissionsAgent {
             return true;
         }
 
-        if (ContextCompat.checkSelfPermission(context, SecurityConstants.REQUIRED_DANGEROUS_PERMISSIONS_LIST[0])
-                == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        return false;
+        return ContextCompat.checkSelfPermission(context, SecurityConstants.REQUIRED_DANGEROUS_PERMISSIONS_LIST[0])
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     public void requestRequiredPermissions() {
@@ -36,6 +36,4 @@ public class PermissionsAgent {
         return grantedResults.length > 0
                 && grantedResults[0] == PackageManager.PERMISSION_GRANTED;
     }
-
-
 }

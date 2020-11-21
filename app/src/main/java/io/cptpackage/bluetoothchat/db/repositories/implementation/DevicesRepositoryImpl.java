@@ -122,6 +122,7 @@ public class DevicesRepositoryImpl implements DevicesRepository<Device> {
         return personalDevice;
     }
 
+
     @Override
     public List<Device> getAllDevices() {
         SQLiteDatabase db = dbManager.getReadableDatabase();

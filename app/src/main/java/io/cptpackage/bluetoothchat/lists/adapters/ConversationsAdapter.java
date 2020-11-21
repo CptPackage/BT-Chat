@@ -14,7 +14,10 @@ import io.cptpackage.bluetoothchat.R;
 import io.cptpackage.bluetoothchat.db.entities.Device;
 import io.cptpackage.bluetoothchat.db.entities.Message;
 import io.cptpackage.bluetoothchat.lists.viewholders.ConversationViewHolder;
-
+/**
+ *Conversations List Adapter
+ *
+ * */
 public class ConversationsAdapter extends RecyclerView.Adapter<ConversationViewHolder> {
     private List<Device> devices;
     private List<Message> lastMessages;

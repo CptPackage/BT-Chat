@@ -14,6 +14,10 @@ import io.cptpackage.bluetoothchat.R;
 import io.cptpackage.bluetoothchat.connection.BluetoothConnectionsManager;
 import io.cptpackage.bluetoothchat.lists.viewholders.DetailedDeviceViewHolder;
 
+/**
+ *Devices detailed data adapter
+ *
+ * */
 public class DetailedDevicesAdapter extends RecyclerView.Adapter<DetailedDeviceViewHolder> {
     private List<BluetoothDevice> devices;
     private BluetoothConnectionsManager connectionsManager;

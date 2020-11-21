@@ -9,7 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import io.cptpackage.bluetoothchat.R;
 import io.cptpackage.bluetoothchat.lists.viewholders.EmoticonViewHolder;
-
+/**
+ *UTF-8 Emoji list adapter
+ *
+ * */
 public class EmoticonsAdapter extends RecyclerView.Adapter<EmoticonViewHolder> {
     String[] emoticons = {"😁", "😂", "😃", "😄", "😅", "😆", "😉", "😊", "😋", "😌",
             "😍", "😏", "😒", "😓", "😜", "😝", "😡", "😥", "😭"};
